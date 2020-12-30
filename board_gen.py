@@ -92,7 +92,7 @@ def make_board_image( board, options ) :
 		for j in range(8) :
 			filled = (i+j)&1
 			piece = board[i*8+j]
-			pos = ((j+border)*font_size, (i+border)*font_size)
+			pos = ((j+border)*font_size, (i+border)*font_size-1)
 			if piece == ' ' :
 				if filled :
 					draw.text( pos, '#', fill = color, font = font )
