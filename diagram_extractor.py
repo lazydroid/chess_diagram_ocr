@@ -100,8 +100,8 @@ def sort_and_join_squares( squares ) :
 
 	# sort by the middle point of the square, favouring Y direction over X
 	squares = sorted(squares, key=lambda x : x[4][0]/3 + x[4][1])
-	for sq in squares :
-		print( sq )
+	#for sq in squares :
+	#	print( sq )
 
 	out = []
 	while len(squares) :
@@ -169,10 +169,10 @@ def main() :
 			#cv2.imshow( 'contours', b )
 			#cv2.waitKey(0)
 
-		cv2.imshow('squares', img)
-		ch = cv2.waitKey() & 0xFF
-		if ch == 27:
-			break
+		#cv2.imshow('squares', img)
+		#ch = cv2.waitKey() & 0xFF
+		#if ch == 27:
+		#	break
 
 		#break
 
