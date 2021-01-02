@@ -38,14 +38,14 @@ decoded = layers.Dense(784, activation='sigmoid')(decoded)
 autoencoder = keras.Model(input_img, decoded)
 
 # This model maps an input to its encoded representation
-encoder = keras.Model(input_img, encoded)
+## encoder = keras.Model(input_img, encoded)
 
 # This is our encoded (32-dimensional) input
-encoded_input = keras.Input(shape=(encoding_dim,))
+## encoded_input = keras.Input(shape=(encoding_dim,))
 # Retrieve the last layer of the autoencoder model
-decoder_layer = autoencoder.layers[-1]
+## decoder_layer = autoencoder.layers[-1]
 # Create the decoder model
-decoder = keras.Model(encoded_input, decoder_layer(encoded_input))
+## decoder = keras.Model(encoded_input, decoder_layer(encoded_input))
 
 autoencoder.compile(optimizer='adam', loss='binary_crossentropy')
 
@@ -63,7 +63,7 @@ print(x_test.shape)
 # Now let's train our autoencoder for 50 epochs:
 
 autoencoder.fit(x_train, x_train,
-                epochs=150,
+                epochs=50,
                 batch_size=256,
                 shuffle=True,
                 validation_data=(x_test, x_test))
@@ -72,8 +72,9 @@ autoencoder.fit(x_train, x_train,
 
 # Encode and decode some digits
 # Note that we take them from the *test* set
-encoded_imgs = encoder.predict(x_test)
-decoded_imgs = decoder.predict(encoded_imgs)
+## encoded_imgs = encoder.predict(x_test)
+## decoded_imgs = decoder.predict(encoded_imgs)
+decoded_imgs = autoencoder.predict(x_test)
 
 # Use Matplotlib (don't ask)
 import matplotlib.pyplot as plt
