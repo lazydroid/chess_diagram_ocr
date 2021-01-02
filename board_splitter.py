@@ -25,6 +25,15 @@ def save_square( base, num, square ) :
 	print( 'saving square', name )
 	cv2.imwrite( name, square )
 
+def is_empty( square ) :
+	average = np.mean( square[2:-2, 2:-2] )
+	if average > 240 :
+		return True	# white square
+	# now checking black square to be uniform
+	center = np.mean( square[ 10:-10, 10:-10 ] )
+	#print( 'average: %.2f center: %.2f' % (average, center) )
+	return abs( average - center ) < 3
+
 if __name__ == '__main__':
 	if len(sys.argv) < 2 :
 		sys.exit('Need an argument: ./board_splitter.py FOLDER')
@@ -58,7 +67,7 @@ if __name__ == '__main__':
 			end_point = (offset + i*size_y / 8, img.shape[0])
 			cv2.line( img, start_point, end_point, (0, 0, 255), 1 )
 
-
+		empty_count = 0
 		for i in range(8) :
 			for j in range(8) :
 				left = offset + i*size_y/8
@@ -66,7 +75,14 @@ if __name__ == '__main__':
 				top = offset + j*size_x/8
 				bottom = offset + (j+1)*size_x/8
 				square = gray[top:bottom, left:right]
-				save_square( base, i*8+j, square )
+				empty = is_empty( square )
+				if empty :
+					empty_count += 1
+					empty_count &= 15
+				if empty_count == 0 or not empty :
+					save_square( base, i*8+j, square )
+				#print( np.mean( square ), is_empty(square), end = '')
+			print()
 
 		cv2.imshow('squares', cv2.pyrUp(img))
 		ch = cv2.waitKey() & 0xFF
