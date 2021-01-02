@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from tensorflow import keras
 from keras import layers
@@ -15,7 +15,7 @@ input_img = keras.Input(shape=(1024,))
 encoded = layers.Dense(256, activation='relu')(input_img)
 encoded = layers.Dense(64, activation='relu')(encoded)
 encoded = layers.Dense(32, activation='relu')(encoded)
-encoded = layers.Dense(16, activation='relu')(encoded)
+#encoded = layers.Dense(16, activation='relu')(encoded)
 
 decoded = layers.Dense(64, activation='relu')(encoded)
 decoded = layers.Dense(256, activation='relu')(decoded)
@@ -60,7 +60,7 @@ encoder = keras.Model(input_img, encoded)
 #sys.exit()
 
 encoded_imgs = encoder.predict(x_test)
-np.savetxt( 'encoded_images.txt', encoded_imgs)
+np.savetxt( 'encoded_images_32.txt', encoded_imgs)
 
 # After 50 epochs, the autoencoder seems to reach a stable train/validation loss value of about 0.09. We can try to visualize the reconstructed inputs and the encoded representations. We will use Matplotlib.
 
@@ -73,7 +73,7 @@ decoded_imgs = autoencoder.predict(x_test)
 # Use Matplotlib (don't ask)
 import matplotlib.pyplot as plt
 
-n = 10  # How many digits we will display
+n = 40  # How many digits we will display
 plt.figure(figsize=(20, 4))
 for i in range(n):
     # Display original
