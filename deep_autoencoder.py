@@ -24,11 +24,11 @@ decoded = layers.Dense(1024, activation='sigmoid')(decoded)
 # This model maps an input to its reconstruction
 autoencoder = keras.Model(input_img, decoded)
 
-#autoencoder.compile(optimizer='adam', loss='binary_crossentropy')
-autoencoder.compile(optimizer='rmsprop', loss='mean_squared_error')
+autoencoder.compile(optimizer='adam', loss='binary_crossentropy')
+#autoencoder.compile(optimizer='rmsprop', loss='mean_squared_error')
 
 #(x_train, _), (x_test, _) = mnist.load_data()
-data = np.load( 'pieces_2021-01-02_1625.npy' )
+data = np.load( 'pieces_2021-01-03_0513.npy' )
 validation_split = int(len(data)*0.8)
 x_train = data[:validation_split]
 x_test = data[validation_split:]

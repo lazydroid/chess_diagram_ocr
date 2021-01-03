@@ -166,14 +166,19 @@ def tsne(X = np.array([]), no_dims = 2, initial_dims = 50, perplexity = 30.0):
 	# Return solution
 	return Y;
 
+import datetime
+
+now = datetime.datetime.now()
+suffix = now.strftime( '%Y-%m-%d_%H%M' )
 
 if __name__ == "__main__":
 	print "Run Y = tsne.tsne(X, no_dims, perplexity) to perform t-SNE on your dataset."
 #	X = np.loadtxt("mnist2500_X.txt");
-	X = np.loadtxt("encoded_images.txt");
+	X = np.loadtxt("encoded_images_32.txt");
 #	labels = np.loadtxt("mnist2500_labels.txt");
-	Y = tsne(X[:1000], 2, 50, 20.0);
-	np.savetxt( 'tsne_Y.txt', Y )
+	Y = tsne(X[:1000], 4, 50, 20.0);
+	#Y = tsne(X, 2, 50, 20.0);
+	np.savetxt( 'tsne_Y_%d_%s.txt' % (len(Y), suffix), Y )
 	_, labels = scipy.cluster.vq.kmeans2( Y, 50 )
 	print 'labels', len(set(list(labels)))
 	Plot.scatter(Y[:,0], Y[:,1], 20, labels);
