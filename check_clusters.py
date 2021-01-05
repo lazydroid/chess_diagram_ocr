@@ -10,12 +10,12 @@ import os, sys, json, time, datetime
 
 import cv2
 
-data = np.load( 'pieces_2021-01-02_1625.npy' )
+data = np.load( 'pieces_64_2021-01-05_0000.npy' )
 validation_split = int(len(data)*0.8)
 x_train = data[:validation_split]
 x_test = data[validation_split:]
 
-Y = np.loadtxt( 'tsne_Y_1000_2021-01-03_0454.txt' )
+Y = np.loadtxt( 'tsne_Y_1000_2021-01-05_0009.txt' )
 _, labels = scipy.cluster.vq.kmeans2( Y, 50 )
 
 #Plot.scatter(Y[:,0], Y[:,1], 20, labels)
