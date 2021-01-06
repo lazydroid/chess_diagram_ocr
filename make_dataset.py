@@ -27,7 +27,16 @@ for folder in sys.argv[1:] :
 #		img = cv2.cvtColor( img, cv2.COLOR_BGR2RGB )	# ?
 		#print img.shape
 
-		resized = cv2.resize( img, (SIZE,SIZE), interpolation = cv2.INTER_CUBIC)
+		if img.shape[0] > 32 :
+			top = (img.shape[0] - 32) / 2
+			img = img[top:top+32,:]
+		if img.shape[1] > 32 :
+			left = (img.shape[1] - 32) / 2
+			img = img[left:left+32,:]
+		if any(img.shape[:2] != (32,32)) :
+			resized = cv2.resize( img, (SIZE,SIZE), interpolation = cv2.INTER_CUBIC)
+		else :
+			resized = img
 
 		result.append( resized )
 
