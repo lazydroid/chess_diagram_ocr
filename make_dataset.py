@@ -33,7 +33,7 @@ for folder in sys.argv[1:] :
 		if img.shape[1] > 32 :
 			left = (img.shape[1] - 32) / 2
 			img = img[left:left+32,:]
-		if any(img.shape[:2] != (32,32)) :
+		if img.shape[:2] != (32,32) :
 			resized = cv2.resize( img, (SIZE,SIZE), interpolation = cv2.INTER_CUBIC)
 		else :
 			resized = img
